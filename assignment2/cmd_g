@@ -1,0 +1,9 @@
+SELECT tot
+FROM (
+    SELECT a.row_num, a.col_num, b.row_num, b.col_num, sum(a.value * b.value) as tot
+    FROM a, b
+    WHERE a.col_num = b.row_num
+    GROUP BY a.row_num, b.col_num
+    HAVING a.row_num = 2 AND b.col_num = 3
+);
+

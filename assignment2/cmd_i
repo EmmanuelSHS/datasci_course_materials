@@ -1,0 +1,13 @@
+SELECT docid, SUM(times) AS tot
+FROM (
+    SELECT a.docid, a.term, a.count, b.count, a.count * b.count as times
+    FROM frequency a, (
+        SELECT 'q' as docid, 'washington' as term, 1 as count
+        UNION 
+        SELECT 'q' as docid, 'taxes' as term, 1 as count
+        UNION 
+        SELECT 'q' as docid, 'treasury' as term, 1 as count
+    ) b
+    WHERE a.term = b.term)
+GROUP BY docid 
+ORDER BY tot ASC;
